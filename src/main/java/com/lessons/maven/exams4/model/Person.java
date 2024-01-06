@@ -24,7 +24,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "track_id")
+    @JoinColumn(name = "track")
     private Track track;
 
 

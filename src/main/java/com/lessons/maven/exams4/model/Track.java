@@ -19,7 +19,7 @@ public class Track {
     private LocalDate goToFishing;
     @Column
     private LocalDate comeBack;
-    @OneToMany
+    @ManyToMany(mappedBy = "track")
     private List<Pot> pots;
 //    @OneToMany
 //    @JoinColumn(name ="person_id")

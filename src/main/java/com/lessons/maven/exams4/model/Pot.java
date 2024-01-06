@@ -1,15 +1,13 @@
 package com.lessons.maven.exams4.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "pot")
@@ -26,7 +24,7 @@ public class Pot {
     public enum Quality{
         BEST,GOOD,LOW
     }
-    @ManyToOne
-    private Track track;
+    @ManyToMany
+    private List<Track> track;
 
 }
