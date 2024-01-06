@@ -21,10 +21,9 @@ public class Track {
     private LocalDate comeBack;
     @ManyToMany(mappedBy = "track")
     private List<Pot> pots;
-//    @OneToMany
-//    @JoinColumn(name ="person_id")
-//    private List <Person> command;
-//    @OneToMany
-//    private List <Fish> fish;
+
+
+    @OneToMany(mappedBy = "track")
+    private List <Fish> fish;
 
 }
