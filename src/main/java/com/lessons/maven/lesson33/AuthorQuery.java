@@ -2,6 +2,8 @@ package com.lessons.maven.lesson33;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorQuery {
 //    private final String uniqueName;
@@ -70,6 +72,50 @@ public class AuthorQuery {
             System.out.println("Ошибка во время соединения с сервером Postgresql");
             throw new RuntimeException(e);
         }
+    }
+    public int update(Author author){
+        String updateSql ="UPDATE tb_authors SET is_active = ? where unique_name =?";
+        try(Connection conn = C3p0ConnectionsPool.getConnectionFromPool()){
+            try(PreparedStatement statement = conn.prepareStatement(updateSql)){
+                statement.setBoolean(1,author.isActive());
+                statement.setString(2,author.getUniqueName());
+                return  statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<Author> getAllAuthor(){
+        String selectSql="SELECT unique_name,registered_at AS registered,is_active FROM tb_authors";
+        List <Author> authors =new ArrayList();
+        try(Statement statement = C3p0ConnectionsPool.getConnectionFromPool().createStatement()){
+            ResultSet resultSet =statement.executeQuery(selectSql);
+            while(resultSet.next()){
+                String uniqueName =resultSet.getString("unique_name");
+                LocalDate registeredAt = resultSet.getObject("registered",LocalDate.class);
+                boolean isActive =resultSet.getBoolean("is_active");
+                Author author = new Author(uniqueName,registeredAt,isActive);
+                authors.add(author);
+            }
+            return authors;
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public List<String> getActiveAuthorsByRegisteredAt(LocalDate localDate){
+        String selectSQL="SELECT unique_name FROM tb_authors  " + "Where is_active =true AND registered_at<?";
+        List<String>strings =new ArrayList<>();
+        try(PreparedStatement statement =C3p0ConnectionsPool.getConnectionFromPool().prepareStatement(selectSQL)){
+            statement.setObject(1,localDate);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                strings.add(resultSet.getString("unique_name"));
+            }
+            return strings;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
 
