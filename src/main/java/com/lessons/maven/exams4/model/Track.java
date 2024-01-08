@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,10 +21,10 @@ public class Track {
     @Column
     private LocalDate comeBack;
     @ManyToMany(mappedBy = "track")
-    private List<Pot> pots;
+    private List<Pot> pots=new ArrayList<>();
 
 
     @OneToMany(mappedBy = "track")
-    private List <Fish> fish;
+    private List <Fish> fish=new ArrayList<>();
 
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class Boat {
     private LocalDate dateOfCreate;
     @OneToMany
     @JoinColumn(name = "boat_id")
-    private List<Track> tracks;
+    private List<Track> tracks =new ArrayList<>();
 
 
 

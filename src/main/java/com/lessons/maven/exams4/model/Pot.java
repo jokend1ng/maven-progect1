@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,6 @@ public class Pot {
         BEST,GOOD,LOW
     }
     @ManyToMany
-    private List<Track> track;
+    private List<Track> track =new ArrayList<>();
 
 }
