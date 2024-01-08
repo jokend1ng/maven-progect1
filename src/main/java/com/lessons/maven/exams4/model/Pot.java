@@ -18,6 +18,7 @@ import java.util.List;
 public class Pot {
     private LocalDate comeIn;
     private LocalDate comeOut;
+    @Enumerated(value = EnumType.STRING)
     private Quality quality;
     @Id
     private Long id;
